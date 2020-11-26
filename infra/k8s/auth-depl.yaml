@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: tylerg509/auth
+          image: us.gcr.io/ticketing-296822/auth
 
 ---
 # service
