@@ -6,12 +6,12 @@ metadata:
 spec: 
   replicas: 1
   selector: 
-    matchLabls: 
-    app: auth-depl
+    matchLabels: 
+      app: auth
   template:
     metadata: 
       labels:
-        app: auth-depl
+        app: auth
     spec:
       containers:
         - name: auth
