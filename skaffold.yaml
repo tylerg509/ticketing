@@ -7,8 +7,10 @@ deploy:
 build: 
   local: 
     push: false
+  googleCloudBuild:
+    projectId: ticketing-296822
   artifacts:
-    - image: tylerg509/auth
+    - image: us.gcr.io/ticketing-296822/auth
       context: auth
       docker:
         dockerfile: Dockerfile
