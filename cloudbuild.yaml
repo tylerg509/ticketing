@@ -7,7 +7,7 @@ steps:
     - '-t'
     - 'gcr.io/$PROJECT_ID/skaffold-builder:latest'
     - '-f'
-    - 'deploy/skaffold/Dockerfile'
+    - '/auth/Dockerfile'
     - '.'
 
 # Do the go build & push the results to GCS
