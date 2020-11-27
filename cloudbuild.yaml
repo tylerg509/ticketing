@@ -1,5 +1,0 @@
-steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ticketing-repo/ticketing-image:latest', '.' ]
-images:
-- 'us-central1-docker.pkg.dev/$PROJECT_ID/ticketing-repo/ticketing-image:latest'
