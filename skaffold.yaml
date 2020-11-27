@@ -9,6 +9,7 @@ build:
   #   push: false
   googleCloudBuild:
     projectId: ticketing-296822
+    dockerImage: gcr.io/cloud-builders/docker
   artifacts:
     - image: us.gcr.io/ticketing-296822/auth
       context: auth
