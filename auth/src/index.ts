@@ -23,6 +23,7 @@ app.all('*', async (req, res) => {
 
 app.use(errorHandler);
 
+// immediately run this startup function
 (async () => {
     try {
         await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
