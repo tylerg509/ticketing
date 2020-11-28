@@ -1,16 +1,26 @@
-import express from 'express';
 import 'express-async-errors';
+
 import { json } from 'body-parser';
+import express from 'express';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
+import { NotFoundError } from './errors/not-found-error';
+import { errorHandler } from './middlewares/error-handler';
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
 
 const app = express();
+
+// To ensure that express knows that are using ngnix and that express is behind the ngnix proxy and this proxy is secure
+app.set('trust proxy', true)
 app.use(json());
+
+app.use(cookieSession({
+    signed: false,
+    secure: true
+}))
 
 app.use(currentUserRouter);
 app.use(signInRouter);
