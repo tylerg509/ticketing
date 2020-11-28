@@ -7,8 +7,14 @@ interface IUserAttrs {
 }
 
 // properties for user model
-interface IUserModel extends mongoose.Model<any> {
-    build(attrs: IUserAttrs): any;
+interface IUserModel extends mongoose.Model<IUserDoc> {
+    build(attrs: IUserAttrs): IUserDoc;
+}
+
+// properties for user document that you want to use
+interface IUserDoc extends mongoose.Document {
+    email: string;
+    password: string;
 }
 
 const userSchema = new mongoose.Schema({
@@ -28,6 +34,6 @@ userSchema.statics.build = (attrs: IUserAttrs) => {
 }
 
 // IUserModels adds typing to the static methods
-const User = mongoose.model<any, IUserModel>('User', userSchema);
+const User = mongoose.model<IUserDoc, IUserModel>('User', userSchema);
 
 export { User }
