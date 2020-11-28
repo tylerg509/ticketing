@@ -17,6 +17,7 @@ const app = express();
 app.set('trust proxy', true)
 app.use(json());
 
+// We need to use a cookie because nextjs app will be rendered server side
 app.use(cookieSession({
     signed: false,
     secure: true
