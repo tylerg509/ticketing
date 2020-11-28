@@ -6,6 +6,11 @@ interface IUserAttrs {
     password: string;
 }
 
+// properties for user model
+interface IUserModel extends mongoose.Model<any> {
+    build(attrs: IUserAttrs): any;
+}
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -17,11 +22,12 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-const User = mongoose.model('User', userSchema);
-
-// For typechecking in TS
-const buildUser = (attrs: IUserAttrs) => {
+// add a static method to the user schema for type checking
+userSchema.statics.build = (attrs: IUserAttrs) => {
     return new User(attrs)
 }
 
-export { User, buildUser }
+// IUserModels adds typing to the static methods
+const User = mongoose.model<any, IUserModel>('User', userSchema);
+
+export { User }
