@@ -35,10 +35,12 @@ router.post('/api/users/signup', [
     await user.save();
 
     // generate jwt
+    // process.env.jwt_key was set using kubectl create secret generic jwt-secret --from-literal=JWT_KEY={INSERT SECRET HERE AND DO NOT USE CURLY BRACE}
+
     const userJwt = jwt.sign({
         id: user.id,
         email: user.email
-    }, 'asdf')
+    }, process.env.JWT_KEY!)  // override ok since this check is handled on startup 
 
     // store on session obj
     req.session = {
