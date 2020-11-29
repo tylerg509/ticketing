@@ -20,7 +20,7 @@ app.use(json());
 // We need to use a cookie because nextjs app will be rendered server side
 app.use(cookieSession({
     signed: false,
-    secure: true
+    secure: process.env.NODE_ENV != 'test' // when in test we should use http and in prod we use https
 }))
 
 app.use(currentUserRouter);
