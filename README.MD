@@ -47,3 +47,9 @@ Run container locally:
 # Notes
 1. A deployment manages one or more pods. You can update all pods through the deployment
 
+# The kubernetes pods used this command to create a jwt secret for signing jwt
+1. kubectl create secret generic jwt-secret --from-literal=JWT_KEY={INSERT SECRET HERE AND DO NOT USE CURLY BRACE}
+2. use kubectl get secrets to show secrets in your env
+
+
+
