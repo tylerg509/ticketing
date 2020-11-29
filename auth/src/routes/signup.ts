@@ -36,7 +36,6 @@ router.post('/api/users/signup', [
 
     // generate jwt
     // process.env.jwt_key was set using kubectl create secret generic jwt-secret --from-literal=JWT_KEY={INSERT SECRET HERE AND DO NOT USE CURLY BRACE}
-
     const userJwt = jwt.sign({
         id: user.id,
         email: user.email
