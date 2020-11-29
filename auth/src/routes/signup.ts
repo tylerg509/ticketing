@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { BadRequestError } from '../errors/bad-request-error';
+import { EnvVariables } from '../helpers/constants';
 import { validateRequest } from '../middlewares/validate-result';
 import { User } from '../models/user';
 
@@ -34,7 +35,7 @@ router.post('/api/users/signup', [
     const userJwt = jwt.sign({
         id: user.id,
         email: user.email
-    }, process.env.JWT_KEY!)  // override ok since this check is handled on startup 
+    }, process.env[EnvVariables.JWT_KEY]!)  // override ok since this check is handled on startup 
 
     // store on session obj
     req.session = {

@@ -10,6 +10,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
 import { signUpRouter } from './routes/signup';
+import { EnvVariables } from './helpers/constants';
 
 const app = express();
 
@@ -36,7 +37,7 @@ app.use(errorHandler);
 
 // immediately run this startup function
 (async () => {
-    if (!process.env.JWT_KEY) {
+    if (!process.env[EnvVariables.JWT_KEY]) {
         throw new Error('JWT_KEY must be defined within kubenetes')
     }
     

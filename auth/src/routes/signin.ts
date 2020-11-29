@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { BadRequestError } from '../errors/bad-request-error';
+import { EnvVariables } from '../helpers/constants';
 import { validateRequest } from '../middlewares/validate-result';
 import { User } from '../models/user';
 import { Password } from '../services/password';
@@ -42,7 +43,7 @@ async (req: Request, res: Response) => {
     const userJwt = jwt.sign({
         id: existingUser.id,
         email: existingUser.email
-    }, process.env.JWT_KEY!)  // override ok since this check is handled on startup 
+    }, process.env[EnvVariables.JWT_KEY]!)  // override ok since this check is handled on startup 
 
     // store on session obj
     req.session = {
