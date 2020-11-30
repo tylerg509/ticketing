@@ -7,6 +7,7 @@ export default ({ url, method, body, onSuccess }) => {
   const doRequest = async () => {
     try {
       setErrors(null);
+      // method = patch post get etc
       const response = await axios[method](url, body);
 
       if (onSuccess) {

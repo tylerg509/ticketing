@@ -52,4 +52,11 @@ Run container locally:
 2. use kubectl get secrets to show secrets in your env
 
 
-
+# Dealing with cross namespace communication
+1. "kubectl get namespace" - all namespaces within the kubernes cluser
+    By default you are working in the defualt namespace
+2. For ex. kubectl get services - returns all services in the default namespace
+    There are other services within the cluster under namespaces other than the default namespace
+3. kubectl get services -n ingress-nginx will show the details services within the nginx namespace.
+4. This is how we determined this base path for server side rendering
+      baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
