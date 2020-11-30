@@ -5,6 +5,11 @@ import axios from 'axios';
 // we create this to handle the base url. 
 // without this when we try to make requests during server side rendering
 // node would point to a local host domain instead of the kubernetes domain
+
+// req gets automatically passed when using getInitialProps (via nextjs)
+// the headers in req contain the cookie
+// the host header is on the req header as well. 
+// host header and cookie is required to be in the header for server side rendering
 export default ({ req }) => {
   if (typeof window === 'undefined') {
     // We are on the server

@@ -12,6 +12,8 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 };
 
 AppComponent.getInitialProps = async appContext => {
+  // since we are working on a component instead of a page (page in next js has routing by conention) we use appContent.ctx here 
+  // if you look at getInitialProps in index.js we do not need to use appContext.ctx. Next adds additional props when you are not on a page
   const client = buildClient(appContext.ctx);
   const { data } = await client.get('/api/users/currentuser');
 
