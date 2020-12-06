@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { BadRequestError } from '@tylergasperlin/ticketing-common';
-import { EnvVariables } from '../helpers/constants';
+import { EnvVariables } from '@tylergasperlin/ticketing-common';
 import { validateRequest } from '@tylergasperlin/ticketing-common';
 import { User } from '../models/user';
 

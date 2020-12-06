@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { EnvVariables } from '../helpers/constants';
+import { EnvVariables } from '@tylergasperlin/ticketing-common';
 import { validateRequest, BadRequestError } from '@tylergasperlin/ticketing-common';
 import { User } from '../models/user';
 import { Password } from '../services/password';
