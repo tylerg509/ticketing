@@ -2,9 +2,9 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { BadRequestError } from '@tylergasperlin/ticketing-common/build/common/src/index';
+import { BadRequestError } from '@tylergasperlin/ticketing-common';
 import { EnvVariables } from '../helpers/constants';
-import { validateRequest } from '@tylergasperlin/ticketing-common/build/common/src/index';
+import { validateRequest } from '@tylergasperlin/ticketing-common';
 import { User } from '../models/user';
 
 const router = express.Router();
