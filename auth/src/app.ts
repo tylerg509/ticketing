@@ -4,8 +4,8 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
 
-import { NotFoundError } from './errors/not-found-error';
-import { errorHandler } from './middlewares/error-handler';
+import { NotFoundError } from '@tylergasperlin/ticketing-common/build/common/src/index';
+import { errorHandler } from '@tylergasperlin/ticketing-common/build/common/src/index';
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
