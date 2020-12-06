@@ -1,7 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose'
 import { app } from '../app';
-import { EnvVariables } from '../helpers/constants';
+import { EnvVariables } from '@tylergasperlin/ticketing-common';
 import request from 'supertest'
 
 
