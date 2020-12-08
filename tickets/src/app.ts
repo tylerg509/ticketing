@@ -4,8 +4,8 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
 
-import { NotFoundError } from '@tylergasperlin/ticketing-common/src/index';
-import { errorHandler } from '@tylergasperlin/ticketing-common/src/index';
+import { NotFoundError } from '@tylergasperlin/ticketing-common';
+import { errorHandler } from '@tylergasperlin/ticketing-common';
 
 
 
