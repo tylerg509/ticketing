@@ -13,7 +13,7 @@ import { EnvVariables } from '@tylergasperlin/ticketing-common';
     }
     
     try {
-        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+        await mongoose.connect(EnvVariables., {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
