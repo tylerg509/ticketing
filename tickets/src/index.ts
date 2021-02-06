@@ -13,7 +13,7 @@ import { EnvVariables } from '@tylergasperlin/ticketing-common';
     }
     
     try {
-        await mongoose.connect(EnvVariables., {
+        await mongoose.connect(EnvVariables.JWT_KEY, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
