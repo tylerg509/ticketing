@@ -17,7 +17,7 @@ import { EnvVariables } from '@tylergasperlin/ticketing-common';
     }
     
     try {
-        await mongoose.connect(EnvVariables.MONGO_URI, {
+        await mongoose.connect(process.env[EnvVariables.MONGO_URI]!, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
