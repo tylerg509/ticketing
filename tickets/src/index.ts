@@ -11,9 +11,13 @@ import { EnvVariables } from '@tylergasperlin/ticketing-common';
     if (!process.env[EnvVariables.JWT_KEY]) {
         throw new Error('JWT_KEY must be defined within kubenetes')
     }
+
+    if(!process.env[EnvVariables.MONGO_URI]) {
+        throw new Error('MONGO_URI must be defined within kubernetes')
+    }
     
     try {
-        await mongoose.connect(EnvVariables.JWT_KEY, {
+        await mongoose.connect(EnvVariables.MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
