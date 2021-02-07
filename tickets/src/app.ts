@@ -1,13 +1,11 @@
 import 'express-async-errors';
 
+import { errorHandler, NotFoundError, currentUser } from '@tylergasperlin/ticketing-common';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
 
-import { NotFoundError } from '@tylergasperlin/ticketing-common';
-import { errorHandler } from '@tylergasperlin/ticketing-common';
-
-
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 
@@ -20,6 +18,10 @@ app.use(cookieSession({
     signed: false,
     secure: process.env.NODE_ENV != 'test' // when in test we should use http and in prod we use https
 }))
+
+app.use(currentUser)
+
+app.use(createTicketRouter);
 
 
 app.all('*', async (req, res) => {

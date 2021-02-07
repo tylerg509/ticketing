@@ -3,12 +3,13 @@ import mongoose from 'mongoose'
 import { app } from '../app';
 import { EnvVariables } from '@tylergasperlin/ticketing-common';
 import request from 'supertest'
-
+import jwt from 'jsonwebtoken'
 
 declare global {
     namespace NodeJS {
         interface Global {
-            signin(): Promise<string[]>
+            signin(): string[];
+
         }
     }
 }
@@ -40,19 +41,26 @@ afterAll(async () => {
     await mongoose.connection.close();
 })
 
-global.signin = async () => {
-    const email = 'test@test.com';
-    const password = 'password'
+global.signin = () => {
+    // Build JWT Payload { id, email }
+    const payload = { 
+        id: '1jjjarwfea',
+        email: 'goose@goose.com'
+    }
 
-    const authResponse = await request(app)
-    .post('/api/users/signup')
-    .send({
-        email: email,
-        password: password,
-    })
-    .expect(201);  
+    // Create JWT
+    const token = jwt.sign(payload, process.env[EnvVariables.JWT_KEY]!)
 
-    const cookie = authResponse.get('Set-Cookie')
+    // Build Session Object { jwt: MY_JWT }
+    const session = { jwt: token }
 
-    return cookie
+    // Turn that session into json
+    const sessionJSON = JSON.stringify(session)
+
+    // Take JSON and encode it to base64
+    const base64 = Buffer.from(sessionJSON).toString('base64')
+
+    // return a string thats the cookie with the encoded data
+    return [`express:sess=${base64}`]
+
 }
