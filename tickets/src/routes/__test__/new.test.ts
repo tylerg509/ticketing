@@ -29,7 +29,7 @@ it('returns an error if an invalid title is provided', async () => {
             title: '',
             price: 10,
         })
-        .expect(400)
+        .expect(400);
 
     await request(app)
         .post('/api/tickets')
@@ -54,7 +54,7 @@ it('returns an error if an invalid price is provided', async () => {
         .post('/api/tickets')
         .set('Cookie', global.signin())
         .send({
-            title: 'gooa3efa'
+            title: 'gooa3efa',
         })
         .expect(400);
 });
