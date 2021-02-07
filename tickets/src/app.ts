@@ -4,6 +4,7 @@ import { errorHandler, NotFoundError, currentUser } from '@tylergasperlin/ticket
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express from 'express';
+import { showTicketRouter } from './routes/show'
 
 import { createTicketRouter } from './routes/new';
 
@@ -22,6 +23,7 @@ app.use(cookieSession({
 app.use(currentUser)
 
 app.use(createTicketRouter);
+app.use(showTicketRouter)
 
 
 app.all('*', async (req, res) => {
