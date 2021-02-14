@@ -1,4 +1,4 @@
-import { NotFoundError, requireAuth } from '@tylergasperlin/ticketing-common';
+import { NotAuthorizedError, NotFoundError, requireAuth } from '@tylergasperlin/ticketing-common';
 import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
 import { Ticket } from '../models/ticket';
@@ -10,6 +10,10 @@ router.put('/api/tickets/:id', requireAuth ,async (req: Request, res: Response) 
 
     if(!ticket) {
         throw new NotFoundError();
+    }
+
+    if(ticket.userId !== req.currentUser!.id) {
+        throw new NotAuthorizedError();
     }
 
     res.send(ticket)
