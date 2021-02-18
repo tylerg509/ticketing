@@ -1,5 +1,7 @@
 import nats from 'node-nats-streaming'
 
+console.clear()
+
 /**
  * See readme - need to enable port forwarding or another option for connection to 4222
  */
