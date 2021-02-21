@@ -19,7 +19,7 @@ stan.on('connect', () => {
         const data = msg.getData();
 
         if (typeof data === 'string') {
-            console.log(`Received event #${msg.getSequence()}, with data ${JSON.parse(data)}`)
+            console.log(`Received event #${msg.getSequence()}, with data ${data}`)
         }
     })
 })
