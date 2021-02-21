@@ -1,11 +1,12 @@
 import nats, {Message} from 'node-nats-streaming'
+import { randomBytes } from 'crypto'
 
 console.clear()
 
 /**
  * See readme - need to enable port forwarding or another option for connection to 4222
  */
-const stan = nats.connect('ticketing', '123', {
+const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
     url: 'http://localhost:4222'
 });
 
