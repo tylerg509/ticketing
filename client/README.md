@@ -1,1 +1,1 @@
-To run use ticketing.dev instead of localhost 3000 when running on skaffold dev
+To view the webpage visit ticketing.dev instead of localhost 3000 when running on skaffold 
