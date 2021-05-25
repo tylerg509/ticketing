@@ -14,6 +14,7 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
 stan.on('connect', () => {
     console.log('listener connected to NATS')
 
+    // implement queue groups so that we process in a round robin form. Each event is only processed once
     const subscription = stan.subscribe('ticket:created', 'orders-service-queue-group')
 
     subscription.on('message', (msg: Message) => {
