@@ -21,28 +21,8 @@ stan.on('connect', () => {
         process.exit();
     })
 
-    const options = stan
-    .subscriptionOptions()
-    .setManualAckMode(true) // set acknoledge mode true (ensures that publisher knows that event has been processed) - after app process event it will respond successfully published event. If it does not process you can do something with it.  you have to write code to tell listeners you processed successfully
-    .setDeliverAllAvailable() // the very first time a listener is created -> send all prior events to the listener. This is ignored on restart and only used when we bring the listener online for the first time
-    .setDurableName('accounting-service') // the events we delivered in the past will be marked as delivered
+    new TicketCreatedListener(stan).listen()
 
-
-    // implement queue groups so that we process in a round robin form. Each event is only processed once
-    const subscription = stan.subscribe(
-    'ticket:created', 
-    'queue-group-name', // even if we disconnect all services the durable name will be maintained
-    options)
-
-    subscription.on('message', (msg: Message) => {
-        const data = msg.getData();
-
-        if (typeof data === 'string') {
-            console.log(`Received event #${msg.getSequence()}, with data ${data}`)
-        }
-
-        msg.ack()
-    })
 })
 
 // we do this so that nats does not wait for a terminated connection to come back on line
@@ -69,17 +49,18 @@ abstract class Listener {
     subscriptionOptions(){
         return this.client
         .subscriptionOptions()
-        .setDeliverAllAvailable()
-        .setManualAckMode(true)
+        .setDeliverAllAvailable()// the very first time a listener is created -> send all prior events to the listener. This is ignored on restart and only used when we bring the listener online for the first time
+        .setManualAckMode(true)// set acknoledge mode true (ensures that publisher knows that event has been processed) - after app process event it will respond successfully published event. If it does not process you can do something with it.  you have to write code to tell listeners you processed successfully
         .setAckWait(this.ackWait)
-        .setDurableName(this.queueGroupName)
+        .setDurableName(this.queueGroupName)// the events we delivered in the past will be marked as delivered
 
     }
 
     listen() {
+        // implement queue groups so that we process in a round robin form. Each event is only processed once
         const subscription = this.client.subscribe(
             this.subject,
-            this.queueGroupName,
+            this.queueGroupName,// even if we disconnect all services the durable name will be maintained
             this.subscriptionOptions()
         )
         subscription.on('message', (msg: Message) => {
@@ -99,5 +80,15 @@ abstract class Listener {
         return typeof data === 'string'
             ? JSON.parse(data)
             : JSON.parse(data.toString('utf-8'))  
+    }
+}
+
+class TicketCreatedListener extends Listener {
+    subject = 'ticket:created';
+    queueGroupName = 'payments-service';
+    onMessage(data: any, msg: Message) {
+        console.log('event data!', data)
+
+        msg.ack()
     }
 }
