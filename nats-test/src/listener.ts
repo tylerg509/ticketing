@@ -14,6 +14,13 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
 stan.on('connect', () => {
     console.log('listener connected to NATS')
 
+    // we do this so that nats does not wait for a terminated connection to come back on line
+    stan.on('close', () => {
+        console.log('Listener connected to NATS')
+        
+        process.exit();
+    })
+
     const options = stan.subscriptionOptions()
     .setManualAckMode(true) // set acknoledge mode true (ensures that publisher knows that event has been processed) - after app process event it will respond successfully published event. If it does not process you can do something with it.  you have to write code to tell listeners you processed successfully
 
@@ -33,3 +40,11 @@ stan.on('connect', () => {
         msg.ack()
     })
 })
+
+// we do this so that nats does not wait for a terminated connection to come back on line
+// int interrupt or terminate restart or ontrol + C 
+// intercept these signals and then close the program
+process.on('SIGINT', () => stan.close())
+process.on('SIGTERM', () => stan.close())
+
+
