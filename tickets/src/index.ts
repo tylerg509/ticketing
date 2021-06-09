@@ -19,6 +19,19 @@ import { natsWrapper } from './nats-wrapper';
     
     try {
         await natsWrapper.connect('ticketing', 'laskik', 'http://nats-srv:4222');
+
+        // we do this so that nats does not wait for a terminated connection to come back on line
+        natsWrapper.client.on('close', () => {
+            console.log('NATS connection closed')
+            
+            process.exit();
+        })
+        // we do this so that nats does not wait for a terminated connection to come back on line
+        // int interrupt or terminate restart or ontrol + C 
+        // intercept these signals and then close the program
+        process.on('SIGINT', () => natsWrapper.client.close())
+        process.on('SIGTERM', () => natsWrapper.client.close())
+
         await mongoose.connect(process.env[EnvVariables.MONGO_URI]!, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
