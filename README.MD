@@ -1,9 +1,11 @@
 # To start = skaffold dev   
     1. The app is run in gcloud kubernetes or run locally using docker
     2. If there are connection errors when running skaffold dev then you need to enable port forwarding within nats-test. See readme for nats-test
+    3. Note that the auth deployment did not succeed when starting the project from scratch on a computer that never had the container before. In this case navigate to auth directory > type "docker build -t tylerg509/auth:latest ."
 # In order to run locally add a path to your hosts file locally
-    1. Open code /etc/hosts
-    2. At bottom add 127.0.0.1 ticketing.dev
+    1. run sudo nano /etc/hosts
+    2. At bottom add 127.0.0.1 ticketing.dev = this was deleted at some point in favor of load balancer address?
+    3. At bottom add 34.94.77.30 ticketing.dev = this is the load balancer address
     
 # get credentials from gcloud for a kubernetes cluster
     1. run gcloud container clusters get-credentials ticketing-dev 
