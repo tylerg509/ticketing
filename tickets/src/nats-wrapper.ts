@@ -1,17 +1,26 @@
 import nats, { Stan } from 'node-nats-streaming'
 
+// This is a singleton class. Initialize at index.ts and use in other files as needed
 class NatsWrapper {
     private _client?: Stan;
+
+    get client(){
+        if(!this._client) {
+            throw new Error('Cannot access NATS client before connected')
+        }
+
+        return this._client;
+    }
 
     connect(clusterId: string, clientId: string, url: string) {
         this._client = nats.connect(clusterId, clientId, { url })
 
         return new Promise((resolve, reject) => {
-            this._client!.on('connect', () => {
+            this.client.on('connect', () => {
                 console.log('connected to nats')
                 resolve('success')
             })
-            this._client!.on('error', (err) => {
+            this.client.on('error', (err) => {
                 reject(err)
             })
         })
