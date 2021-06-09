@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 import { EnvVariables } from '@tylergasperlin/ticketing-common';
+import { natsWrapper } from './nats-wrapper';
 
 
 // immediately run this startup function
@@ -17,6 +18,7 @@ import { EnvVariables } from '@tylergasperlin/ticketing-common';
     }
     
     try {
+        await natsWrapper.connect('ticketing', 'laskik', 'http://nats-srv:4222');
         await mongoose.connect(process.env[EnvVariables.MONGO_URI]!, {
             useNewUrlParser: true,
             useUnifiedTopology: true,

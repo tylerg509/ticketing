@@ -1,5 +1,6 @@
 # To start = skaffold dev   
     1. The app is run in gcloud kubernetes or run locally using docker
+    2. If there are connection errors when running skaffold dev then you need to enable port forwarding within nats-test. See readme for nats-test
 # In order to run locally add a path to your hosts file locally
     1. Open code /etc/hosts
     2. At bottom add 127.0.0.1 ticketing.dev
