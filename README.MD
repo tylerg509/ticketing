@@ -64,3 +64,10 @@ Run container locally:
 3. kubectl get services -n ingress-nginx will show the details services within the nginx namespace.
 4. This is how we determined this base path for server side rendering
       baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+
+
+# skaffold dev does not start project = maybe nginx issue
+1. kubectl get namespace
+2. to view logs $ kubectl get pods -n <namespace-of-ingress-controller>
+3. $ kubectl logs -n <namespace> nginx-ingress-controller-67956bf89d-fv58j
+
