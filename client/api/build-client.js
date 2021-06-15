@@ -17,7 +17,7 @@ export default ({ req }) => {
     // nginx stores the base url and can determine the correct base url based on the route provided
     // for ex api/users/currentuser is all that should be needed to make a request. nginx determines the base url
     return axios.create({
-      baseURL: 'http://ingress-nginx-controller.ingress-nginx-controller.svc.cluster.local',
+      baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
       headers: req.headers
     });
   } else {
