@@ -4,8 +4,8 @@
     3. Note that the auth deployment did not succeed when starting the project from scratch on a computer that never had the container before. In this case navigate to auth directory > type "docker build -t tylerg509/auth:latest ."
 # In order to run locally add a path to your hosts file locally
     1. run sudo nano /etc/hosts
-    2. At bottom add 127.0.0.1 ticketing.dev = this was deleted at some point in favor of load balancer address?
-    3. At bottom add 34.94.77.30 ticketing.dev = this is the load balancer address
+    2. At bottom add 127.0.0.1 ticketing.dev = if running locally
+    3. At bottom add 34.94.77.30 ticketing.dev = this is the load balancer address - one that this project once set up in google cloud
     
 # get credentials from gcloud for a kubernetes cluster
     1. run gcloud container clusters get-credentials ticketing-dev 
@@ -76,3 +76,5 @@ Run container locally:
 2. navigate to https://kubernetes.github.io/ingress-nginx/deploy/#provider-specific-steps and follow the install step to install nginx within the cluster
 3. If this is first time setting up you need to build out the ingress-srv file to deploy the ingress controller
 4. kubectle apply -f ingress-srv.yaml
+5. If you are using a custom domain like ticketing.dev make sure to add to the hosts file
+    see the above instructions on adding ticketing.dev to host file locally
