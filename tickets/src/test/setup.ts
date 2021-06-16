@@ -19,6 +19,7 @@ jest.mock('../nats-wrapper')
 let mongo: any;
 
 beforeAll(async () => {
+    jest.clearAllMocks()
     process.env[EnvVariables.JWT_KEY] = 'asdfasdf'
 
     mongo = new MongoMemoryServer();
