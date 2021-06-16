@@ -3,8 +3,6 @@ import mongoose from 'mongoose'
 import { app } from '../app';
 import { EnvVariables } from '@tylergasperlin/ticketing-common';
 import request from 'supertest'
-
-
 declare global {
     namespace NodeJS {
         interface Global {
@@ -12,6 +10,7 @@ declare global {
         }
     }
 }
+
 
 let mongo: any;
 
