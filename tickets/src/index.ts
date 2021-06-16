@@ -16,9 +16,25 @@ import { natsWrapper } from './nats-wrapper';
     if(!process.env[EnvVariables.MONGO_URI]) {
         throw new Error('MONGO_URI must be defined within kubernetes')
     }
+
+    if(!process.env.NATS_CLIENT_ID) {
+        throw new Error('NATS_CLIENT_ID must be defined within kubernetes')
+    }
+
+    if(!process.env.NATS_URL) {
+        throw new Error('NATS_URL must be defined within kubernetes')
+    }
+
+    if(!process.env.NATS_CLUSTER_ID) {
+        throw new Error('NATS_CLUSTER_ID must be defined within kubernetes')
+    }
     
     try {
-        await natsWrapper.connect('ticketing', 'laskik', 'http://nats-srv:4222');
+        await natsWrapper.connect(
+            process.env.NATS_CLUSTER_ID, 
+            process.env.NATS_CLIENT_ID, 
+            process.env.NATS_URL
+        );
 
         // we do this so that nats does not wait for a terminated connection to come back on line
         natsWrapper.client.on('close', () => {
