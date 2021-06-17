@@ -45,7 +45,16 @@ Run container locally:
 
     kubectl describe service posts-srv = get the details of a certain service
 
-    
+# Create new project
+1. After creating a new project such as orders project
+2. Go into the directory where there should be a docker file
+3. The build docker     docker build -t tylerg509/tylerposts:latest .  
+4. Docker push tylerg509/tylerposts
+    - you might have to login = docker login
+5. Then create yaml-depl file
+6. Then update skaffold.yaml with the new project
+7. Then skaffold dev to run the project and should work without error. If error try shut down skaffold and restart
+
 
 # Notes
 1. A deployment manages one or more pods. You can update all pods through the deployment
