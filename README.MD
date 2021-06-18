@@ -54,6 +54,7 @@ Run container locally:
 5. Then create yaml-depl file
 6. Then update skaffold.yaml with the new project
 7. Then skaffold dev to run the project and should work without error. If error try shut down skaffold and restart
+8. Update ingress-srv.yaml with routing rules
 
 
 # Notes
