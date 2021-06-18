@@ -17,7 +17,7 @@ spec:
         - name: orders
           image: tylerg509/orders
           env: 
-            - name: NATS_CLINET_ID
+            - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
                   fieldPath: 'metadata.name'
