@@ -24,20 +24,8 @@ router.post('api/orders', requireAuth, [
         throw new NotFoundError();
     }
     // make sure ticket is not reserved 
-
-    // get ticket that has status of created, awaiting, complete to see if ticket is reserved
-    const existingOrder = await Order.findOne({
-        ticket: ticket,
-        status: {
-            $in: [
-                OrderStatus.Created,
-                OrderStatus.AwaitingPayment,
-                OrderStatus.Complete
-            ]
-        }
-    })
-
-    if(existingOrder) {
+    const isReserved = await ticket.isReserved();
+    if(isReserved) {
         throw new BadRequestError('Ticket is already reserved')
     }
     // calc expiration of reserved ticket
