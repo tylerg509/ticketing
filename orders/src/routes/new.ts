@@ -1,7 +1,8 @@
-import { NotFoundError, requireAuth, validateRequest } from '@tylergasperlin/ticketing-common';
+import { BadRequestError, NotFoundError, OrderStatus, requireAuth, validateRequest } from '@tylergasperlin/ticketing-common';
 import express, { Response, Request } from 'express';
 import { body } from 'express-validator';
 import mongoose from 'mongoose'
+import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();
@@ -24,6 +25,21 @@ router.post('api/orders', requireAuth, [
     }
     // make sure ticket is not reserved 
 
+    // get ticket that has status of created, awaiting, complete to see if ticket is reserved
+    const existingOrder = await Order.findOne({
+        ticket: ticket,
+        status: {
+            $in: [
+                OrderStatus.Created,
+                OrderStatus.AwaitingPayment,
+                OrderStatus.Complete
+            ]
+        }
+    })
+
+    if(existingOrder) {
+        throw new BadRequestError('Ticket is already reserved')
+    }
     // calc expiration of reserved ticket
 
     // build order and save to db
