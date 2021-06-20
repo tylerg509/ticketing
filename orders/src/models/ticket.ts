@@ -3,7 +3,7 @@ import { Order, OrderStatus } from './order'
 
 interface TicketAttrs {
     title: string;
-    price: string;
+    price: number;
 }
 
 export interface TicketDoc extends mongoose.Document, TicketAttrs {

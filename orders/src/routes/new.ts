@@ -8,7 +8,7 @@ import { Ticket } from '../models/ticket';
 const router = express.Router();
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
-router.post('api/orders', requireAuth, [
+router.post('/api/orders', requireAuth, [
     body('ticketId')
     .not()
     .isEmpty()
