@@ -26,9 +26,6 @@ it('fetches the order', async () => {
     .send()
     .expect(200);
 
-    console.log(fetchedOrder.id)
-    console.log(order.id)
-
   expect(fetchedOrder.id).toEqual(order.id);
 });
 

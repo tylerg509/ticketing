@@ -1,25 +1,36 @@
-import { NotAuthorizedError, NotFoundError, OrderStatus, requireAuth } from '@tylergasperlin/ticketing-common';
-import express, { Response, Request } from 'express';
-import { Order } from '../models/order';
-
+import express, { Request, Response } from 'express';
+import {
+  requireAuth,
+  NotFoundError,
+  NotAuthorizedError,
+} from '@tylergasperlin/ticketing-common';
+import { Order, OrderStatus } from '../models/order';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-router.delete('api/orders/:orderId', requireAuth,  async (req: Request, res: Response) => {
-    const order = await Order.findById(req.params.orderId).populate('ticket') // should verify orderid first
+router.delete(
+  '/api/orders/:orderId',
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const { orderId } = req.params;
 
-    if(!order) {
-        throw new NotFoundError()
+    const order = await Order.findById(orderId).populate('ticket');
+
+    if (!order) {
+      throw new NotFoundError();
     }
-
-    if(order.userId !== req.currentUser!.id) {
-        throw new NotAuthorizedError()
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
     }
-
     order.status = OrderStatus.Cancelled;
     await order.save();
-    
-    res.send(order)
-})
 
-export { router as deleteOrderRouter }
+    // publishing an event saying this was cancelled!
+
+
+    res.status(204).send(order);
+  }
+);
+
+export { router as deleteOrderRouter };
