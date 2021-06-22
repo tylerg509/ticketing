@@ -1,12 +1,16 @@
 import mongoose from 'mongoose'
+import { idText } from 'typescript'
 import { Order, OrderStatus } from './order'
 
-interface TicketAttrs {
+interface TicketAttrs extends TicketAttrsBase{
+    id: string
+}
+interface TicketAttrsBase {
     title: string;
     price: number;
 }
 
-export interface TicketDoc extends mongoose.Document, TicketAttrs {
+export interface TicketDoc extends mongoose.Document, TicketAttrsBase {
     isReserved(): Promise<boolean>
 }
 
@@ -36,7 +40,11 @@ const ticketSchema = new mongoose.Schema({
 })
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
-    return new Ticket(attrs)
+    return new Ticket({
+        _id: attrs.id, // _id is mongo db id field
+        price: attrs.price,
+        title: attrs.title
+    })
 } 
 
 // must use function
