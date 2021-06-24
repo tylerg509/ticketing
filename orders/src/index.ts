@@ -5,6 +5,8 @@ import { app } from './app';
 
 import { EnvVariables } from '@tylergasperlin/ticketing-common';
 import { natsWrapper } from './nats-wrapper';
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
 
 
 // immediately run this startup function
@@ -47,6 +49,9 @@ import { natsWrapper } from './nats-wrapper';
         // intercept these signals and then close the program
         process.on('SIGINT', () => natsWrapper.client.close())
         process.on('SIGTERM', () => natsWrapper.client.close())
+
+        new TicketCreatedListener(natsWrapper.client).listen()
+        new TicketUpdatedListener(natsWrapper.client).listen()
 
         await mongoose.connect(process.env[EnvVariables.MONGO_URI]!, {
             useNewUrlParser: true,

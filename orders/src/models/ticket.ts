@@ -51,6 +51,7 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
 ticketSchema.methods.isReserved = async function() {
     // get ticket that has status of created, awaiting, complete to see if ticket is reserved
     const existingOrder = await Order.findOne({
+        //@ts-ignore
         ticket: this,
         status: {
             $in: [
