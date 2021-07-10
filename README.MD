@@ -82,6 +82,7 @@ Run container locally:
 3. $ kubectl logs -n <namespace> nginx-ingress-controller-67956bf89d-fv58j
 
 # first time starting app you need to deploy nginx manually - if nginx is not created in a pod the app will not start when visiting ticketing.dev
+# if you were to ever start a new project using nginx you would also need to do this
 1. navigate to infra/k8s
 2. navigate to https://kubernetes.github.io/ingress-nginx/deploy/#provider-specific-steps and follow the install step to install nginx within the cluster
 3. If this is first time setting up you need to build out the ingress-srv file to deploy the ingress controller
